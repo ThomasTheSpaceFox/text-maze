@@ -133,3 +133,5 @@ until [[ "$end" = "1" || "$entry" = "quit" ]]; do
     end=1
   fi
 done
+echo "press enter to exit"
+read nullvaliue
