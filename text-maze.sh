@@ -1,14 +1,35 @@
 #!/bin/bash
 WHEREAMI="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd && echo)"
 cd $WHEREAMI
-file=sample.txt
+echo "---------------------------------------------------------"
+echo "|Thomas's Text-maze system                               |"
+echo "|v 1.1                                                   |"
+echo "---------------------------------------------------------"
+echo ""
+echo "these mazes were found:"
+$WHEREAMI/MAZE/mazesearch.sh
+echo ""
+WHEREAMI="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd && echo)"
+cd $WHEREAMI
+echo "enter name of valid .MAZE file"
+echo "only type .MAZE files found above"
+echo "MAZE files should be in MAZE directory in the script's directory"
+until [ "$FILEREAD" = "1" ]; do
+  read filed
+  file=$WHEREAMI/MAZE/$filed
+  if test -e "$file"; then
+    FILEREAD=1
+  else
+    echo "maze not found"
+  fi
+done
 LOOKUP=$WHEREAMI/lookup.sh
 TIMG=$WHEREAMI/T-IMG.sh
 CANTMOVE="cannot move in that direction."
 FINISH="congradulations, you won."
 START="Welcome to text-maze."
 name="$(sed '1q;d' $file)"
-MODID="$(sed '2q;d' $file)"
+MODID="$WHEREAMI/MAZE/$(sed '2q;d' $file)"
 MODTABLE=$(cat $MODID)
 sizey=$(sed '3q;d' $file)
 sizex=$(sed '4q;d' $file)
